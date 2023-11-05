@@ -86,26 +86,6 @@ char **lsh_split_line(char *line)
     return tokens;
 }
 
-void lsh_loop(void)
-{
-    char *line;
-    char **args;
-    int status;
-
-    do
-    {
-        printf("> ");
-
-        line = lsh_read_line();
-        args = lsh_split_line(line);
-        status = lsh_execute(args);
-
-        free(line);
-        free(args);
-
-    } while (status);
-}
-
 int lsh_launch(char **args)
 {
     pid_t pid, wpid;
@@ -224,6 +204,26 @@ int lsh_execute(char **args)
     }
 
     return lsh_launch(args);
+}
+
+void lsh_loop(void)
+{
+    char *line;
+    char **args;
+    int status;
+
+    do
+    {
+        printf("> ");
+
+        line = lsh_read_line();
+        args = lsh_split_line(line);
+        status = lsh_execute(args);
+
+        free(line);
+        free(args);
+
+    } while (status);
 }
 
 int main(int argc, char **argv)
